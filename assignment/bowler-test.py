@@ -1,4 +1,4 @@
-from bowler import Bowler
+from assignment.bowler import Bowler
 
 def main():
     # Nasir famous as nas is a right arm bowler played several matches
