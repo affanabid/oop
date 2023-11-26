@@ -6,7 +6,7 @@ with open("errors.txt") as file1:
         line = file1.readline()
         while line != "":
             lineno = int(line)
-            line = file1.readline()  # read next record line
+            line = file1.readline()
             file2.seek((lineno-1)*59)
             file2.writelines(line)
             line = file1.readline()
