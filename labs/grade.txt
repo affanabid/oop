@@ -19,3 +19,12 @@ BITF09M003 Kishwar Hameed                  DLD    19 15 26
 BITF09M010 Yasir Ubaid                     ITC    18 20 31
 BITF09M010 Yasir Ubaid                     PF     25 21 34
 BITF09M010 Yasir Ubaid                     DLD    29 22 33
+BITF09M004 Umar Hayat                      ITC    11 18 37
+BITF09M004 Umar Hayat                      PF     19 17 27
+BITF09M004 Umar Hayat                      DLD    31 22 34
+BITF09M008 Ali Hameed                      ITC    24 20 33
+BITF09M008 Ali Hameed                      PF     28 24 37
+BITF09M008 Ali Hameed                      DLD    19 15 26
+BSEF09M009 Amir Ubaid                      ITC    18 20 31
+BSEF09M009 Amir Ubaid                      PF     25 21 34
+BSEF09M009 Amir Ubaid                      DLD    29 22 33
