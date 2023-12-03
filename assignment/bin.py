@@ -49,7 +49,7 @@ def valid_course(roll_no, course):
             if roll_no == data_roll_no and data_course == course:
                 return False
     return True
-# add_grades(['OOP', 'BSDSF22A013', 88.5])
+# add_grades(['OOP', 'BSDSF22A012', 54.5])
 
 def view_grade_sw(req_roll_no):
     with open(f'grades.bin', 'rb') as file:
@@ -64,7 +64,7 @@ def view_grade_sw(req_roll_no):
                 search = True
     if search == False:
         print('Student not found')
-# view_grade_sw('BSDSF22A011') 
+# view_grade_sw('BSDSF22A013')
 
 def view_grade_cw(req_course):
     with open(f'grades.bin', 'rb') as file:
@@ -116,7 +116,21 @@ def edit_grade(req_roll_no, req_course, new_marks):
             else:
                 file2.write(line)
     print('Student grade Updated')
-# edit_grade('BSDSF22A011', 'PF', 70)
+# edit_grade('BSDSF22A012', 'PF', 70)
+
+def delete_grade(req_roll_no, req_course):
+    with open('grades.bin', 'r+b') as file:
+        lines = file.readlines()
+    with open('grades.bin', 'wb') as file2:
+        for line in lines:
+            data = struct.unpack('20s11sf1s', line)
+            roll_no = data[1].decode().strip('\x00')
+            course = data[0].decode().strip('\x00')
+            if req_roll_no != roll_no or req_course != course:
+                file2.write(line)
+    print('Deleted Successfully')
+# delete_grade('BSDSF22A013', 'PF')
+
 def add_student(data):
     roll_no = bytes(data[0], 'UTF-8')
     name = bytes(data[1], 'UTF-8')
@@ -285,33 +299,21 @@ def read_bytes(data):
 # view_student('BSDSF22A010')
 
 def student_list():
+    print('Roll No.\tName\tDept\tSem\tmarks\tContact')
     with open('std.bin', 'rb') as file:
         entries = file.readlines()
         for entry in entries:
-            print(entry)
+            data = struct.unpack('11s30s2sif11s1s', entry)
+            roll_no = data[0].decode()
+            name = data[1].decode()
+            dept = data[2].decode()
+            sem = data[3]
+            perc = data[4]
+            contact = data[5].decode()
+            print(f'{roll_no}\t{name}\t{dept}\t{sem}\t{perc}\t{contact}')
+
 # new_byte = student_struct.unpack(byte)
 #     print(new_byte[0].decode('utf-8'))
-
-def add_grades(roll_no, grade, course):
-    with open(f'{course}.bin', 'ab+') as file:
-        roll_no = bytes(roll_no, 'utf-8')
-        grade = bytes(grade, 'utf-8')
-        file.write(roll_no)
-        file.write(b'\t')
-        file.write(grade)
-        file.write(b'\n')
-# add_grades('BSDSF22A011', 'D', 'pf')
-
-def view_grades(req_roll_no, course):
-    with open(f'{course}.bin', 'rb') as file:
-        lines = file.readlines()
-        print(f'Course: {course}')
-        for line in lines:
-            data = line.decode()
-            roll_no = data.split()[0]
-            if roll_no == req_roll_no:
-                print(data)
-# view_grades('BSDSF22A012', 'pf')
 
 def main():
     user = 2
@@ -331,5 +333,41 @@ def main():
         elif user == 4:
             roll_no = input('Enter Roll No: ')
             edit_student(roll_no=roll_no)
+        elif user == 5:
+            roll_no = input('Enter Roll No: ')
+            delete_student(req_roll_no=roll_no)
+        #elif user == 6:
+        #elif user == 7:
+        elif user == 8:
+            student_list()
+        elif user == 9:
+            roll_no = input('Enter Roll No: ')
+            course = input('Enter Course: ')
+            perc = float(input('Enter Percentage: '))
+            add_grades([course, roll_no, perc])
+        #elif user == 10:
+        elif user == 11:
+            roll_no = input('Enter Roll No: ')
+            view_grade_sw(req_roll_no=roll_no)
+        elif user == 12:
+            roll_no = input('Enter Roll No: ')
+            course = input('Enter Course: ')
+            perc = float(input('Enter new percentage: '))
+            edit_grade(req_roll_no=roll_no, req_course=course, new_marks=perc)
+        elif user == 13:
+            roll_no = input('Enter Roll No: ')
+            course = input('Enter Course: ')
+            delete_grade(req_roll_no=roll_no, req_course=course)
+        elif user == 14:
+            roll_no = input('Enter Roll No: ')
+            view_grade_sw(req_roll_no=roll_no)
+        elif user == 15:
+            course = input('Enter the course: ')
+            view_grade_cw(req_course=course)
+        elif user == 16:
+            award_list()
+        #elif user == 17:
+        #elif user == 18:
+        user = int(input('Enter 1 to exit, 2 to continue: '))
     print('Exiting the system!')
 main()
