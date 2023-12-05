@@ -3,6 +3,14 @@ import struct
 student_struct = struct.Struct('11s30s2sif11s')
 grades_struct = struct.Struct('20s11sf')
 
+def add_from_file():    
+    with open('grds.txt', 'r') as file:
+        lines = file.readlines()
+        print(lines)
+        for line in lines:
+            data = line.split()
+            data[2] = float(data[2])
+            add_grades(data)
 
 def assign_grade(score):
     if score >= 85:
@@ -87,14 +95,21 @@ def award_list():
             data = struct.unpack('20s11sf1s', line)
             data_course = data[0].decode().strip('\x00')
             if course == data_course:
-                print(f'Student: {data[1].decode()}\tMarks: {data[2]}\tGrade: {assign_grade(data[2])}')
+                print(f'Student: {data[1].decode()}\tPercentage: {data[2]}\tGrade: {assign_grade(data[2])}')
         course = 'OOP'
         print('\nCourse: ',course)
         for line in lines:
             data = struct.unpack('20s11sf1s', line)
             data_course = data[0].decode().strip('\x00')
             if course == data_course:
-                print(f'Student: {data[1].decode()}\tMarks: {data[2]}\tGrade: {assign_grade(data[2])}')
+                print(f'Student: {data[1].decode()}\tPercentage: {data[2]}\tGrade: {assign_grade(data[2])}')
+        course = 'DLD'
+        print('\nCourse: ',course)
+        for line in lines:
+            data = struct.unpack('20s11sf1s', line)
+            data_course = data[0].decode().strip('\x00')
+            if course == data_course:
+                print(f'Student: {data[1].decode()}\tPercentage: {data[2]}\tGrade: {assign_grade(data[2])}')
 # award_list()
 
 def edit_grade(req_roll_no, req_course, new_marks):
@@ -286,6 +301,24 @@ def view_student(req_roll_no):
             if roll_no == req_roll_no:
                 read_bytes(data)
 
+def list_student_by_name(req_name):
+    with open('std.bin', 'rb') as file:
+        entries = file.readlines()
+        for entry in entries:
+            data = struct.unpack('11s30s2sif11s1s', entry)
+            name = data[1].decode().strip('\x00')
+            if name == req_name:
+                read_bytes(data)
+                
+def list_student_by_sem(req_sem):
+    with open('std.bin', 'rb') as file:
+        entries = file.readlines()
+        for entry in entries:
+            data = struct.unpack('11s30s2sif11s1s', entry)
+            sem = data[3]
+            if sem == req_sem:
+                read_bytes(data)
+
 def read_bytes(data):
     for element in data:
         if isinstance(element, int):
@@ -315,6 +348,74 @@ def student_list():
 # new_byte = student_struct.unpack(byte)
 #     print(new_byte[0].decode('utf-8'))
 
+def summary_sheet():
+    print('ROLL NO\t\tNAME\tDEPT\tSEM\tPERC\tCONTACT\t\tCRS: PERC\tCRS: PERC\tCRS: PERC')
+
+    with open('std.bin', 'rb') as file1:
+        student_data = file1.readlines()
+        for student in student_data:
+            data = struct.unpack('11s30s2sif11s1s', student)
+            roll_no = data[0].decode()
+            name = data[1].decode()
+            dept = data[2].decode()
+            sem = data[3]
+            perc = data[4]
+            contact = data[5].decode()
+            print(f'{roll_no}\t{name}\t{dept}\t{sem}\t{perc}\t{contact}', end='\t')
+
+            with open('grades.bin', 'rb') as file2:
+                grades_data = file2.readlines()
+                for grade in grades_data:
+                    g_data = struct.unpack('20s11sf1s', grade)
+
+                    
+                    g_roll_no = g_data[1].decode()
+                    if roll_no == g_roll_no:
+                        course = g_data[0].decode()
+                        perc = g_data[2]
+                        print(f'{course}: {perc}', end='\t')
+            print()
+
+def transcript(start, end):
+    roll_list = []
+    if start > 0 and end < 10:
+        while start <= end:
+            roll_no = 'BSDSF22A00' + str(start)
+            roll_list.append(roll_no)
+            start += 1
+    else:
+        print('Invalid Input!')
+    view_transcript(roll_list)
+
+def view_transcript(roll_no):
+    for req_roll_no in roll_no:
+        with open('std.bin', 'rb') as file1:
+            student_data = file1.readlines()
+            for student in student_data:
+                data = struct.unpack('11s30s2sif11s1s', student)
+                s_roll_no = data[0].decode()
+                if s_roll_no == req_roll_no:
+                    name = data[1].decode().strip('\x00')
+                    dept = data[2].decode().strip('\x00')
+                    sem = data[3]
+                    perc = data[4]
+                    contact = data[5].decode().strip('\x00')
+
+                    print(f'{s_roll_no}\t{name}\t{dept}\t{sem}\t{perc}\t{contact}', end='\t')
+
+                    with open('grades.bin', 'rb') as file2:
+                        grades_data = file2.readlines()
+                        for grade in grades_data:
+                            g_data = struct.unpack('20s11sf1s', grade)
+                            g_roll_no = g_data[1].decode()
+                            if s_roll_no == g_roll_no:
+                                course = g_data[0].decode().strip('\x00')
+                                perc = g_data[2]
+                                print(f'{course}: {perc}', end='\t')
+
+        print()
+# transcript(2, 10)
+
 def main():
     user = 2
     while user != 1:
@@ -336,8 +437,12 @@ def main():
         elif user == 5:
             roll_no = input('Enter Roll No: ')
             delete_student(req_roll_no=roll_no)
-        #elif user == 6:
-        #elif user == 7:
+        elif user == 6:
+            sem = int(input('Enter Sem: '))
+            list_student_by_sem(sem)
+        elif user == 7:
+            name = input('Enter a name: ')
+            list_student_by_name(name)
         elif user == 8:
             student_list()
         elif user == 9:
@@ -345,7 +450,8 @@ def main():
             course = input('Enter Course: ')
             perc = float(input('Enter Percentage: '))
             add_grades([course, roll_no, perc])
-        #elif user == 10:
+        elif user == 10:
+            add_from_file()
         elif user == 11:
             roll_no = input('Enter Roll No: ')
             view_grade_sw(req_roll_no=roll_no)
@@ -366,8 +472,13 @@ def main():
             view_grade_cw(req_course=course)
         elif user == 16:
             award_list()
-        #elif user == 17:
-        #elif user == 18:
+        elif user == 17:
+            summary_sheet()
+        elif user == 18:
+            print('Enter the range of roll no:')
+            start = int(input('From: '))
+            end = int(input('To: '))
+            transcript(start, end)
         user = int(input('Enter 1 to exit, 2 to continue: '))
     print('Exiting the system!')
 main()
