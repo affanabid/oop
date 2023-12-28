@@ -1,0 +1,7 @@
+Ranking team        played      won     lost    draw    points
+======= ==========  ======      ===     ====    ====    ======
+1       Pakistan    4           4       0       0       8
+2       India       4           3       0       1       7
+3       Austrailia  4           3       1       0       6
+4       NewZealand  4           2       2       0       4
+5       SriLanka    4           0       3       1       1

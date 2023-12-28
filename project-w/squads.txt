@@ -1,0 +1,5 @@
+Australia   Aaron Finch David Warner    Steve Smith Glenn Maxwell   Pat Cummins Mitchell Starc  Adam Zampa  Matthew Wade    Josh Hazlewood  Marcus Stoinis
+Pakistan    Babar Azam  Mohammad Rizwan Shaheen Afridi  Hasan Ali   Shadab Khan Fakhar Zaman    Mohammad Hafeez Shoaib Malik    Imad Wasim  Haris Rauf
+India   Virat Kohli  Rohit Sharma   KL Rahul    Rishabh Pant    Jasprit Bumrah  Ravindra Jadeja Mohammed Shami  Hardik Pandya   Shikhar Dhawan  Yuzvendra Chahal
+Sri Lanka   Dimuth Karunaratne  Kusal Perera    Angelo Mathews  Dushmantha Chameera Wanindu Hasaranga   Dasun Shanaka   Avishka Fernando    Chamika Karunaratne Bhanuka Rajapaksa   Charith Asalanka
+New Zealand Kane Williamson Tim Southee Trent Boult Devon Conway    Ross Taylor Kyle Jamieson   Mitchell Santner    Adam Milne  Ish Sodhi   Martin Guptill

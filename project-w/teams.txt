@@ -1,0 +1,7 @@
+name        code    captain     vicecaptain     coach       points
+==========  ====    ==========  ===========     =======     ======
+Pakistan    PAK     Babar       Shadab          Misbah      8
+India       IND     Kohli       Sharma          Shastri     7
+Austrailia  AUS     Finch       Warner          Arthur      6   
+NewZealand  NZ      Williamson  Curran          Chris       4
+SriLanka    SL      Mathews     Mendis          Amit        1
