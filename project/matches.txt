@@ -1,6 +1,6 @@
-Match No. Team1        Team2        Date        Over   Won            Lost         
-========= ===========  ===========  ==========  ====== ============   =============
-1         SriLanka     New Zealand  20-10-2023  20     SriLanka       NewZealand  
+Match No. Team1        Team2        Date       Over   Won            Lost         
+========= ===========  ===========  ========== ====== ============   =============
+1         Sri Lanka    New Zealand  20-10-2023  20     SriLanka       NewZealand  
 2         Australia    India        22-10-2023  20     India          Australia   
 3         India        Pakistan     24-10-2023  20     India          Pakistan    
 4         SriLanka     India        26-10-2023  20     India          SriLanka    
@@ -10,6 +10,5 @@ Match No. Team1        Team2        Date        Over   Won            Lost
 8         Pakistan     NewZealand   04-11-2023  20     Pakistan       NewZealand  
 9         Australia    SriLanka     06-11-2023  20     Australia      SriLanka    
 10        Pakistan     Australia    08-11-2023  20     Australia      Pakistan    
-11        Pakistan     SriLanka     12-11-2023  20     Pakistan       SriLanka    
-12        Australia    India        16-11-2023  20     Australia      India       
-13        Pakistan     Australia    18-11-2023  20     Australia      Pakistan     
+11        Pakistan     SriLanka     12-11-2023  20     TBD            TBD  
+12        Australia    India        16-11-2023  20     TBD            TBD   

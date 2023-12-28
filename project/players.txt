@@ -50,3 +50,4 @@ Adam Milne                NewZealand      Yes      Yes      No           31
 Ish Sodhi                 NewZealand      Yes      Yes      No           31
 Martin Guptill            NewZealand      Yes      No       No           37
 Virat Kohli               India           yes      no       no           20   
+Affan Abid                Nazi            yes      yes      yes          20   

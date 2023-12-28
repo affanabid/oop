@@ -21,12 +21,11 @@ def show_message(window, message):
     squad_label.pack()
 
 def display_squad(window, team_name):
-    players = squad(team_name)  # Get the list of players for the team
+    players = squad(team_name)
+    print(players)
     if players:
         squad_window = tk.Toplevel(window)
         squad_window.title("Squad")
-
-        # Display players in a label
         players_label = tk.Label(squad_window, text='\n'.join(players), padx=20, pady=10)
         players_label.pack()
     else:
@@ -96,18 +95,18 @@ def conc_names(names):
     return(concatenated_names)
 
 def squad(team_name):
-    players = []  # List to store players
-    with open('squads.txt', 'r') as file:
+    players = []
+    with open('players.txt', 'r') as file:
+        file.readline()
+        file.readline()
         contents = file.readlines()
         for content in contents:
-            team = content.split()[0]
+            # print(content)
+            team = content.split()[2]
             if team == team_name:
-                line = content.strip()
-                players = line.split()[1:]  # Get players excluding team name
-                break  # Exit loop once team is found
-        else:
-            print('Team not found!')
-    return conc_names(players)  # Return the list of players
+                name = content.split()[0] + ' ' + content.split()[1]
+                players.append(name)
+    return players 
 
 def fixtures(window):
     fixtures = []
@@ -125,10 +124,6 @@ def fixtures(window):
 
 def match_details(window, team1, team2):
     data = []
-    # team1=team1.split()
-    # team1="".join(team1)
-    # team2=team2.split()
-    # team2="".join(team2)
     with open('matches.txt','r') as file:
         head = file.readline()
         data.append(head)
@@ -148,24 +143,47 @@ def display_match(window, match):
     match_label = tk.Label(match_window, text='\n'.join(match), padx=20, pady=10, justify='left')
     match_label.pack()
 
-def remove_match(window, match_no):
-    match_no = int(match_no)
+def remove_match(match_no):
     file=open('matches.txt','r')
     z=file.readlines()
+    Line=(z[match_no+1]).split()
     z=z[:match_no+1]+z[match_no+2:]
-    filelength=len(z)
-    if match_no+2>filelength:
-        raise Exception('No match of this number exists')
-    x=match_no
-    for i in range(x+1,filelength):
-        line=z[i]
-        w=str(i-1)+line[2:]
-        z[i]=w
-    file.close()
-    file=open('matches.txt','w')
-    file.writelines(z)
-    file.close()
-    show_message(window, 'Match record removed successfully')
+    if Line[-1]=='TBD' or Line[-2]=='TBD':
+        filelength=len(z)
+        if match_no+2>filelength:
+            raise Exception('No match of this number exists')
+        x=match_no
+        for i in range(x+1,filelength):
+            line=z[i]
+            w=str(i-1)+line[2:]
+            z[i]=w
+        file.close()
+        file=open('matches.txt','w')
+        file.writelines(z)
+        file.close()
+        print('Match record removed successfully')
+    else:
+        raise Exception('This match cannot be deleted')
+    
+# remove_match(11)
+# def remove_match(window, match_no):
+#     match_no = int(match_no)
+#     file=open('matches.txt','r')
+#     z=file.readlines()
+#     z=z[:match_no+1]+z[match_no+2:]
+#     filelength=len(z)
+#     if match_no+2>filelength:
+#         raise Exception('No match of this number exists')
+#     x=match_no
+#     for i in range(x+1,filelength):
+#         line=z[i]
+#         w=str(i-1)+line[2:]
+#         z[i]=w
+#     file.close()
+#     file=open('matches.txt','w')
+#     file.writelines(z)
+#     file.close()
+#     show_message(window, 'Match record removed successfully')
 
 def player_details(window, player_name):
     player = []
@@ -211,11 +229,3 @@ def remove_player(window, player_name):
     with open('players.txt','w') as file:
         file.writelines(x)
     show_message(window, 'Player record removed successfully')
-
-# print(match_details('Pakistan', 'India'))
-# fixtures()
-# squad('India')
-# print(points('SriLanka'))
-# standings()
-# list_all_teams()
-# List of names

@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 import file
 
 def add_frame(window):
@@ -12,14 +11,11 @@ def add_frame(window):
         is_wicketkeeper = wk_entry.get()
 
         if player_name and player_team and player_age and player_batting and player_bowling and is_wicketkeeper:
-            file.add_player(window, player_name, player_team, player_age, player_batting, player_bowling, is_wicketkeeper)
+            file.add_player(player_name, player_team, player_age, player_batting, player_bowling, is_wicketkeeper)
             add_player_window.destroy()
         else:
             add_player_window.destroy()
             file.show_message(window, 'Incomplete data. Try again!')
-        # file.add_player(name=player_name, team=player_team, age=player_age, bat=player_batting, bowl=player_bowling, wk=is_wicketkeeper)
-
-        # add_player_window.destroy()
 
     add_player_window = tk.Toplevel()
     add_player_window.title("Add Player")
@@ -82,9 +78,6 @@ def team_frame(window):
     points_button = tk.Button(team_frame, text="Points", command=lambda: file.points(window, team_name_entry.get()))
     points_button.grid(row=0, column=3, pady=5, padx=(10, 10))
 
-    # add_team_button = tk.Button(team_frame, text="Add Team", command=lambda: show_message("Add Team"))
-    # add_team_button.grid(row=0, column=4, pady=5, padx=(10, 10))
-
     list_teams_button = tk.Button(team_frame, text="List All Teams", command=lambda: file.display_teams(window))
     list_teams_button.grid(row=1, column=0, pady=5, padx=(10, 10))
 
@@ -132,14 +125,21 @@ def player_frame():
     remove_player_button.grid(row=0, column=3, pady=5, padx=(10, 10))
 
 
-
 # Main window
 window = tk.Tk()
 window.title("Cricket Tournament Management System")
+
+# Define a custom font style
+title_font = ("Arial", 8, "bold")  # Font: Arial, size 14, bold
+
+# Apply the custom font to the window title
+window.title("Cricket Tournament Management System")
+window.option_add("*Font", title_font)
+
 window.state('zoomed')  # Full-screen mode with title bar and close button
 
 # Heading
-heading_label = tk.Label(window, text="CRICKET MANAGEMENT SYSTEM", font=("Times New Roman", 25, "bold"), pady=30)
+heading_label = tk.Label(window, text="CRICKET MANAGEMENT SYSTEM", font=("ARIAL", 25, "bold"), pady=30)
 heading_label.grid(row=0, column=0, sticky="nsew")
 
 # Extra frame for Standings and Schedule buttons
