@@ -1,5 +1,5 @@
 import tkinter as tk
-import file
+import layer2 as file
 
 def add_frame(window):
     def save_player(window):
@@ -76,12 +76,12 @@ def team_frame(window):
     squad_button.grid(row=0, column=2, pady=5, padx=(20, 10))
 
     points_button = tk.Button(team_frame, text="Points", command=lambda: file.points(window, team_name_entry.get()))
-    points_button.grid(row=0, column=3, pady=5, padx=(10, 10))
+    points_button.grid(row=0, column=3, pady=5, padx=(5, 5))
 
     list_teams_button = tk.Button(team_frame, text="List All Teams", command=lambda: file.display_teams(window))
     list_teams_button.grid(row=1, column=0, pady=5, padx=(10, 10))
 
-def match_frame():
+def match_frame(window):
     match_frame = tk.LabelFrame(window, text="Match Management", bg="light gray", padx=20, pady=10)
     match_frame.grid(row=3, column=0, padx=20, pady=15, sticky="nsew")
 
@@ -90,21 +90,24 @@ def match_frame():
     team1_entry = tk.Entry(match_frame)
     team1_entry.grid(row=0, column=1, pady=5)
 
-    team2_label = tk.Label(match_frame, text="Team 2")
-    team2_label.grid(row=1, column=0, pady=5)
-    team2_entry = tk.Entry(match_frame)
-    team2_entry.grid(row=1, column=1, pady=5)
+    # team2_label = tk.Label(match_frame, text="Team 2")
+    # team2_label.grid(row=1, column=0, pady=5)
+    # team2_entry = tk.Entry(match_frame)
+    # team2_entry.grid(row=1, column=1, pady=5)
 
-    get_details_button = tk.Button(match_frame, text="Get Details", command=lambda: file.match_details(window, team1_entry.get(), team2_entry.get()))
-    get_details_button.grid(row=1, column=2, pady=5, padx=(10, 10))
-
+    get_details_button = tk.Button(match_frame, text="See all matches", command=lambda: file.match_details(window,team1= team1_entry.get()))
+    get_details_button.grid(row=0, column=2, pady=5, padx=(20, 20))
+        
     remove_match_label = tk.Label(match_frame, text="Enter match number")
     remove_match_label.grid(row=3, column=0, pady=5)
     remove_match_entry = tk.Entry(match_frame)
     remove_match_entry.grid(row=3, column=1, pady=5)
 
+    details_button = tk.Button(match_frame, text="Get details", command=lambda: file.match_details(window,team1= int(remove_match_entry.get())))
+    details_button.grid(row=3, column=2, pady=5, padx=(10, 10))
+
     remove_match_button = tk.Button(match_frame, text="Remove Match", command=lambda: file.remove_match(window, remove_match_entry.get()))
-    remove_match_button.grid(row=3, column=2, pady=5, padx=(10, 10))
+    remove_match_button.grid(row=3, column=3, pady=5, padx=(10, 10))
 
 def player_frame():
     player_frame = tk.LabelFrame(window, text="Player Management", bg="light gray", padx=20, pady=10)
@@ -139,15 +142,14 @@ window.option_add("*Font", title_font)
 window.state('zoomed')  # Full-screen mode with title bar and close button
 
 # Heading
-heading_label = tk.Label(window, text="CRICKET MANAGEMENT SYSTEM", font=("ARIAL", 25, "bold"), pady=30)
+heading_label = tk.Label(window, text="CRICKET TOURNAMENT MANAGEMENT SYSTEM", font=("ARIAL", 25, "bold"), pady=30)
 heading_label.grid(row=0, column=0, sticky="nsew")
 
 # Extra frame for Standings and Schedule buttons
 extra_frame()
-
 # Frames
 team_frame(window)
-match_frame()
+match_frame(window)
 player_frame()
 
 # Adjust column weights for horizontal elongation
