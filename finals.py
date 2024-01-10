@@ -1,22 +1,28 @@
 class Human:
-    def __init__(self, name , age) -> None:
+    def __init__(self, name) -> None:
         self.name = name
+
+class Boss(Human):
+    def __init__(self, name, age) -> None:
+        super().__init__(name)
         self.age = age
 
     def add_age(self, no):
         self.age += no 
 
-class Employee:
-     def __init__(self, code, position) -> None:
-          self.code = code
-          self.position = position
+class Employee(Human):
+    def __init__(self, name, code='', position='') -> None:
+        super().__init__(name)
+        self.code = code
+        self.position = position
 
-class Person(Human, Employee):
-     def __init__(self, name, age, code, position) -> None:
-          Human.__init__(self, name, age)
-          Employee.__init__(self, code, position)
+class Person(Boss, Employee):
+    def __init__(self, name, age, code, position) -> None:
+        super().__init__( name, age)
+        super().__init__(self, name, code, position)
 
 person = Person('Affan', 20, 9, 'Developer')
-print(person.age)
-person.add_age(5)
-print(person.age)
+
+print(person)
+# person.add_age(5)
+# print(person.age)

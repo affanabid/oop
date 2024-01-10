@@ -21,12 +21,12 @@ def menu():
         print('InValid Input.')
 def add_course():
     with open('crsfile.txt', 'a') as course_file:
-        code = 'IICT    '
-        title = 'Intro to Information and Communication Technology '
+        code = 'ISL'
+        title = 'Intro to Information and Communication Technology'
         credit_hours = 3
         sem = 3
         type = 'core'
-        content = f'{code} {title} {credit_hours} {sem} {type}\n'
+        content = f'{code}\t{title}\t{credit_hours}\t{sem}\t{type}\n'
         course_file.write(content)
     course_file.close()
 # add_course()
@@ -44,8 +44,22 @@ def delete_course(code):
     with open('crsfile.txt', 'w') as writefile:
         for line in new_lines:
             writefile.write(line)
+# def delete_course(code):
+#     new_lines = []
+#     with open('crsfile.txt', 'r') as file:
+#         lines = file.readlines()
+#         for line in lines:
+#             crs_code = line.split()[0]
+#             crs_code = crs_code.strip()
+#             if crs_code != code:
+#                 new_lines.append(line)
+#                 print(line)
+#     with open('crsfile.txt', 'w') as file:
+#         for line in new_lines:
+#             file.write(line)
 
-# delete_course('PF')
+
+delete_course('ISL')
 
 def search(code):
     with open('crsfile.txt', 'r') as course_file:
@@ -84,4 +98,5 @@ def edit(code, new_crhrs):
         for line in new_lines:
             writefile.write(line)
 # edit('ALP',5)
-menu()
+# menu()
+# 

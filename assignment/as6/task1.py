@@ -14,14 +14,18 @@ class Vector:
         return f"Vector{self.components}"
 
     def __eq__(self, other):
-        e = 0
         for i in range(len(self.components)):
-            if self.components[i] == other.components[i]:
-                e += 1
-        if e == len(self.components):
-            print('Both vectors are equal')
-        else:
-            print('Both vectors are unequal')
+            if self.components[i] != other.components[i]:
+                return 'Unequal'
+        return 'Equal'
+        # e = 0
+        # for i in range(len(self.components)):
+        #     if self.components[i] == other.components[i]:
+        #         e += 1
+        # if e == len(self.components):
+        #     print('Both vectors are equal')
+        # else:
+        #     print('Both vectors are unequal')
 
     def magnitude(self):
         mag = 0
@@ -70,20 +74,20 @@ class Vector:
 
 v1 = Vector([1, 2, 3])
 v2 = Vector([1, 2, 3])
+print(v1.__eq__(v2))
+# v1.__eq__(v2)
 
-v1.__eq__(v2)
+# print("Magnitude of v1:", v1.magnitude()) 
 
-print("Magnitude of v1:", v1.magnitude()) 
+# print("Dot product of v1 and v2:", v1.dot_product(v2))
 
-print("Dot product of v1 and v2:", v1.dot_product(v2))
+# print("Scalar multiplication of v1 by 2:", v1.scalar_multiply(2)) 
 
-print("Scalar multiplication of v1 by 2:", v1.scalar_multiply(2)) 
+# print("Addition of v1 and v2:", v1.add(v2))
 
-print("Addition of v1 and v2:", v1.add(v2))
+# print("Subtraction of v1 from v2:", v2.subtract(v1))  
 
-print("Subtraction of v1 from v2:", v2.subtract(v1))  
-
-print(v2.cross_product(v1))
+# print(v2.cross_product(v1))
 
 
 # Testing for different dimensional vectors
@@ -146,4 +150,4 @@ def run_tests():
     else:
         print(f'{test} Tests passed and {fail} failed!')
     
-run_tests()
+# run_tests()
